@@ -6,5 +6,12 @@ import { Component } from '@angular/core';
   styleUrls: ['./app.component.css']
 })
 export class AppComponent {
-  title = 'northwind';
+  title:string = 'northwind';
+  user:string = "Engin Demiroğ";
+  
 }
+
+
+//component html in datasını yonettiğimiz yerdir.
+
+//notification service için npm i ngx-toastr kurduk bu paket anguların animasyon paketini kullandıgından ekstra olarak npm i @angular/animations kurduk

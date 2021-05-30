@@ -1,0 +1,41 @@
+<div *ngIf="dataLoaded==false" class="spinner-border" role="status">
+    <span class="visually-hidden">Loading...</span>
+</div>
+
+<div *ngIf="dataLoaded==true" class="mb-3">
+    <label for="filterText" class="form-label">Urun Arama</label>
+    <input [(ngModel)]="filterText" type="text" class="form-control" id="filterText" placeholder="urun ismi giriniz">
+  </div>
+
+<div *ngIf="filterText.length>2" class="alert alert-success">
+{{ filterText }} <span >Aradınız</span>      
+</div>
+
+<table *ngIf="dataLoaded==true" class="table">
+    <thead>
+        <tr>
+            <th>Id</th>
+            <th>Upper Name</th>
+            <th>Lower Name</th>
+            <th>Category Id</th>
+            <th>Unit Price</th>
+            <th>Vat Price</th>
+            <th>Units In Stock</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr *ngFor="let product of products | filterPipe:filterText">
+            <td>{{product.productId}}</td>
+            <td>{{product.productName | uppercase}}</td>
+            <td>{{product.productName | lowercase}}</td>
+            <td>{{product.categoryId}}</td>
+            <td>{{product.unitPrice | currency }}</td>
+            <td>{{product.unitPrice | vatAdded: 18 | currency }}</td>  
+            <!-- vatAdded pipe ı ekledik bu pipe gidip transform isimli methodu 
+                calıştırıyor bu trasnform pipe ın sol tarafındaki veriyi value olarak gonderiyor : dan sonra gele ise  parametreler oluyor yani şu şekilde 
+                transform(product.UnitPrice,10)  -->
+            <td>{{product.unitsInStock}}</td>
+            <td><button (click)="addToCart(product)" type="button" class="btn btn-success btn-xs">Sepete Ekle</button></td>
+        </tr>
+    </tbody>
+</table>
